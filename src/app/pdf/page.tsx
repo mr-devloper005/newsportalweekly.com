@@ -11,6 +11,7 @@ export const generateMetadata = () =>
     description: taskPageMetadata.pdf.description,
   });
 
-export default function PdfLibraryPage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="pdf" category={searchParams?.category} />;
+export default async function PdfLibraryPage({ searchParams }: { searchParams?: Promise<{ category?: string }> }) {
+  const resolved = (await searchParams) || {};
+  return <TaskListPage task="pdf" category={resolved.category} />;
 }
