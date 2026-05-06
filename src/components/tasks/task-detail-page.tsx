@@ -19,6 +19,8 @@ import { getFactoryState } from "@/design/factory/get-factory-state";
 import { getProductKind } from "@/design/factory/get-product-kind";
 import { DirectoryTaskDetailPage } from "@/design/products/directory/task-detail-page";
 import { TASK_DETAIL_PAGE_OVERRIDE_ENABLED, TaskDetailPageOverride } from "@/overrides/task-detail-page";
+import { Share2, Copy } from "lucide-react";
+import { ArticleShareWrapper } from "@/components/tasks/article-share-wrapper";
 
 type PostContent = {
   category?: string;
@@ -267,44 +269,118 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
-                  {post.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span>By {articleAuthor}</span>
-                  {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
-                    <Tag className="h-3.5 w-3.5" />
-                    {category}
-                  </Badge>
+              <div className="mx-auto w-full max-w-6xl">
+                {/* Innovative Hero Section */}
+                <div className="relative mb-16 overflow-hidden">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    {/* Geometric Pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+                          </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Featured Image with Overlay */}
+                  {images[0] && (
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40"></div>
+                      <ContentImage
+                        src={images[0]}
+                        alt={`${post.title} featured image`}
+                        fill
+                        className="object-cover opacity-40"
+                        intrinsicWidth={1600}
+                        intrinsicHeight={900}
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Hero Content */}
+                  <div className="relative px-8 py-20 lg:px-16">
+                    <div className="max-w-4xl">
+                      {/* Category Badge */}
+                      <div className="inline-flex items-center gap-3">
+                        <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-20"></div>
+                        <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30 px-4 py-2 text-xs font-semibold tracking-wider uppercase">
+                          {category}
+                        </Badge>
+                        <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-20"></div>
+                      </div>
+                      
+                      {/* Title with Typography Focus */}
+                      <h1 className="mt-8 text-5xl lg:text-7xl font-serif leading-[0.9] tracking-tight text-white">
+                        {post.title.split(' ').map((word, i) => (
+                          <span key={i} className="block">{word}</span>
+                        ))}
+                      </h1>
+                      
+                      {/* Share Button */}
+                      <ArticleShareWrapper url={articleUrl} />
+                      
+                      {/* Author and Date */}
+                      <div className="mt-8 flex flex-wrap items-center gap-6 text-white/90">
+                        <div className="flex items-center gap-3">
+                          <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                            <span className="text-white font-bold text-lg">{articleAuthor.charAt(0).toUpperCase()}</span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-white">{articleAuthor}</p>
+                            <p className="text-sm text-white/70">Senior Editor</p>
+                          </div>
+                        </div>
+                        <div className="h-8 w-px bg-white/30"></div>
+                        <div className="text-sm">
+                          <p className="font-semibold">{articleDate}</p>
+                          <p className="text-white/70">5 min read</p>
+                        </div>
+                      </div>
+                      
+                      {/* Summary */}
+                      {articleSummary && (
+                        <div className="mt-8 max-w-3xl">
+                          <p className="text-lg leading-relaxed text-white/90 font-light">
+                            {articleSummary}
+                          </p>
+                        </div>
+                      )}
+                      
+                      {/* Tags */}
+                      {postTags.length > 0 && (
+                        <div className="mt-8 flex flex-wrap gap-2">
+                          {postTags.map((tag) => (
+                            <Badge key={tag} variant="outline" className="border-white/40 text-white/80 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+                              #{tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom Gradient Fade */}
+                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
                 </div>
-                {postTags.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
+
+                {/* Unique Content Layout */}
+                <div className="mx-auto max-w-4xl">
+                  {/* Main Content */}
+                  <div className="space-y-12">
+                    {/* Article Content with Enhanced Typography */}
+                    <div className="prose prose-lg prose-violet max-w-none">
+                      <RichContent html={articleHtml} className="prose-headings:font-serif prose-h2:text-4xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:text-violet-900 prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-violet-800 prose-p:text-lg prose-p:leading-8 prose-p:text-gray-700 prose-ul:space-y-4 prose-li:text-lg prose-li:leading-8 prose-blockquote:border-l-4 prose-blockquote:border-l-violet-500 prose-blockquote:bg-violet-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl prose-blockquote:italic" />
+                    </div>
+                    
+                    <ArticleComments slug={post.slug} />
                   </div>
-                ) : null}
-                {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
-                ) : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
-                    <ContentImage
-                      src={images[0]}
-                      alt={`${post.title} featured image`}
-                      fill
-                      className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
-                    />
-                  </div>
-                ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
-                <ArticleComments slug={post.slug} />
+                </div>
               </div>
             ) : null}
 

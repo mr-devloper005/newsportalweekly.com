@@ -352,10 +352,10 @@ export default function CreateTaskPage() {
           <span className="text-[#0c1726]">Create</span>
         </nav>
 
-        <section className="overflow-hidden rounded-3xl bg-[#0c1726] p-10 text-white lg:p-12">
+        <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#d3ee5d] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[#0c1726]">
+              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-emerald-300 border border-emerald-500/30">
                 <HeroIcon className="h-3 w-3" />
                 {hero?.eyebrow || "Create new content"}
               </span>
@@ -366,10 +366,10 @@ export default function CreateTaskPage() {
                 {formConfig.description}
               </p>
               {!user ? (
-                <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl border border-[#d3ee5d]/30 bg-[#d3ee5d]/10 px-4 py-3 text-sm text-[#d3ee5d]">
+                <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
                   <Sparkles className="h-4 w-4" />
                   Sign in first — we save your draft to your browser.
-                  <Link href="/login" className="ml-auto rounded-full bg-[#d3ee5d] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[#0c1726] hover:bg-[#c2dd4d]">
+                  <Link href="/login" className="ml-auto rounded-full bg-emerald-500 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-slate-900 hover:bg-emerald-400">
                     Sign in
                   </Link>
                 </div>
@@ -379,11 +379,11 @@ export default function CreateTaskPage() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">Draft progress</span>
-                <span className="text-2xl font-bold text-[#d3ee5d]">{completion}%</span>
+                <span className="text-2xl font-bold text-emerald-400">{completion}%</span>
               </div>
               <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
                 <div
-                  className="h-full rounded-full bg-[#d3ee5d] transition-all"
+                  className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all"
                   style={{ width: `${completion}%` }}
                 />
               </div>
@@ -395,7 +395,7 @@ export default function CreateTaskPage() {
                   const done = !!values[f.key]?.trim();
                   return (
                     <div key={f.key} className="flex items-center gap-2 text-xs text-white/80">
-                      <CheckCircle2 className={done ? "h-4 w-4 text-[#d3ee5d]" : "h-4 w-4 text-white/30"} />
+                      <CheckCircle2 className={done ? "h-4 w-4 text-emerald-400" : "h-4 w-4 text-white/30"} />
                       <span className={done ? "" : "text-white/60"}>{f.label}</span>
                     </div>
                   );
@@ -412,7 +412,7 @@ export default function CreateTaskPage() {
                 {taskConfig.label}
               </p>
               <span className="text-slate-300">·</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#d3ee5d] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#0c1726]">
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-700">
                 Local only
               </span>
             </div>
@@ -440,7 +440,7 @@ export default function CreateTaskPage() {
                         placeholder={field.placeholder}
                         value={values[field.key] || ""}
                         onChange={(event) => updateValue(field.key, event.target.value)}
-                        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-7 outline-none focus:border-[#0c1726]"
+                        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-7 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                       />
                     ) : field.type === "category" ? (
                       <div className="relative">
@@ -448,7 +448,7 @@ export default function CreateTaskPage() {
                         <select
                           value={values[field.key] || ""}
                           onChange={(event) => updateValue(field.key, event.target.value)}
-                          className="h-12 w-full appearance-none rounded-full border border-slate-200 bg-white pl-11 pr-4 text-sm outline-none focus:border-[#0c1726]"
+                          className="h-12 w-full appearance-none rounded-full border border-slate-200 bg-white pl-11 pr-4 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                         >
                           <option value="">Select category</option>
                           {CATEGORY_OPTIONS.map((option) => (
@@ -460,15 +460,15 @@ export default function CreateTaskPage() {
                       </div>
                     ) : field.type === "file" ? (
                       <div className="grid gap-3">
-                        <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center transition hover:border-[#0c1726] hover:bg-white">
+                        <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center transition hover:border-emerald-500 hover:bg-emerald-50">
                           {uploadingPdf ? (
-                            <Loader2 className="h-7 w-7 animate-spin text-[#0c1726]" />
+                            <Loader2 className="h-7 w-7 animate-spin text-emerald-600" />
                           ) : pdfFileName ? (
-                            <CheckCircle2 className="h-7 w-7 text-[#0c1726]" />
+                            <CheckCircle2 className="h-7 w-7 text-emerald-600" />
                           ) : (
-                            <CloudUpload className="h-7 w-7 text-[#0c1726]" />
+                            <CloudUpload className="h-7 w-7 text-emerald-600" />
                           )}
-                          <p className="text-sm font-semibold text-[#0c1726]">
+                          <p className="text-sm font-semibold text-emerald-600">
                             {uploadingPdf
                               ? "Uploading…"
                               : pdfFileName
@@ -517,7 +517,7 @@ export default function CreateTaskPage() {
                               setPdfFileName(null);
                               updateValue(field.key, event.target.value);
                             }}
-                            className="h-12 w-full rounded-full border border-slate-200 bg-white px-4 text-sm outline-none focus:border-[#0c1726]"
+                            className="h-12 w-full rounded-full border border-slate-200 bg-white px-4 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                           />
                         </div>
                       </div>
@@ -536,7 +536,7 @@ export default function CreateTaskPage() {
                           }
                           value={values[field.key] || ""}
                           onChange={(event) => updateValue(field.key, event.target.value)}
-                          className={`h-12 w-full rounded-full border border-slate-200 bg-white px-4 text-sm outline-none focus:border-[#0c1726] ${field.type === "images" ? "pl-11" : ""}`}
+                          className={`h-12 w-full rounded-full border border-slate-200 bg-white px-4 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 ${field.type === "images" ? "pl-11" : ""}`}
                         />
                       </div>
                     )}
@@ -556,7 +556,7 @@ export default function CreateTaskPage() {
               <div className="flex flex-wrap gap-3">
                 <Link
                   href={taskConfig.route}
-                  className="inline-flex h-12 items-center gap-2 rounded-full border border-[#0c1726] px-5 text-xs font-bold uppercase tracking-[0.18em] text-[#0c1726] hover:bg-[#0c1726] hover:text-white"
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-emerald-600 px-5 text-xs font-bold uppercase tracking-[0.18em] text-emerald-600 hover:bg-emerald-50"
                 >
                   <Eye className="h-4 w-4" />
                   Preview library
@@ -569,7 +569,7 @@ export default function CreateTaskPage() {
                     setTimeout(() => setSubmitting(false), 600);
                   }}
                   disabled={submitting}
-                  className="inline-flex h-12 items-center gap-2 rounded-full bg-[#0c1726] px-6 text-xs font-bold uppercase tracking-[0.18em] text-white hover:bg-[#1a2538] disabled:opacity-70"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-700 px-6 text-xs font-bold uppercase tracking-[0.18em] text-white hover:from-emerald-700 hover:to-emerald-800 disabled:opacity-70 shadow-lg shadow-emerald-600/25"
                 >
                   {submitting ? (
                     <>
@@ -589,15 +589,15 @@ export default function CreateTaskPage() {
 
           <aside className="space-y-6 lg:sticky lg:top-32 lg:self-start">
             {hero ? (
-              <div className="rounded-3xl bg-[#d3ee5d] p-6">
+              <div className="rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-50 p-6 border border-emerald-200">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#0c1726]" />
-                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#0c1726]">Editorial tips</p>
+                  <Sparkles className="h-4 w-4 text-emerald-600" />
+                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-700">Editorial tips</p>
                 </div>
-                <ul className="mt-4 space-y-3 text-sm leading-6 text-[#0c1726]">
+                <ul className="mt-4 space-y-3 text-sm leading-6 text-emerald-700">
                   {hero.tips.map((tip) => (
                     <li key={tip} className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
                       {tip}
                     </li>
                   ))}
@@ -607,18 +607,18 @@ export default function CreateTaskPage() {
 
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">Live preview</p>
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
                   {values.category || "category"} · {new Date().toLocaleDateString("en-US", { day: "2-digit", month: "short" }).toUpperCase()}
                 </p>
-                <h3 className="mt-2 text-base font-bold uppercase leading-snug tracking-tight text-[#0c1726]">
+                <h3 className="mt-2 text-base font-bold uppercase leading-snug tracking-tight text-slate-900">
                   {values.title || values.brandName || "Your headline appears here"}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-xs leading-6 text-slate-600">
                   {values.summary || "Write a short summary so readers know what's inside."}
                 </p>
                 {pdfFileName ? (
-                  <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#d3ee5d] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#0c1726]">
+                  <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-700">
                     <FileText className="h-3 w-3" />
                     {pdfFileName}
                   </div>
