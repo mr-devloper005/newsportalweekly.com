@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { Bookmark, Building2, FileText, Image as ImageIcon, Sparkles } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
@@ -57,7 +58,7 @@ function getLoginConfig(kind: ReturnType<typeof getProductKind>) {
 
 export default function LoginPage() {
   if (LOGIN_PAGE_OVERRIDE_ENABLED) {
-    return <LoginPageOverride />
+    return <Suspense fallback={null}><LoginPageOverride /></Suspense>
   }
 
   const { recipe } = getFactoryState()

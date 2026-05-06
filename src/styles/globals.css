@@ -1,6 +1,38 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Load Playwrite Argentina Guides font with fallback */
+@font-face {
+  font-family: 'Playwrite Argentina Guides';
+  src: url('https://fonts.gstatic.com/s/playwriteargentinaguides/v17/2sDdZG1YqRHa-wLdQSLaE6OyT9w.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Force Playwrite Argentina Guides font with highest specificity */
+* {
+  font-family: 'Playwrite Argentina Guides', cursive !important;
+}
+
+/* Additional font rules for comment sections */
+#comments, 
+#comments *,
+.comment-section,
+.comment-section *,
+[data-testid="comment"],
+[data-testid="comment"] * {
+  font-family: 'Playwrite Argentina Guides', cursive !important;
+}
+
+/* Textarea and input elements in comments */
+textarea, 
+input,
+textarea:focus,
+input:focus {
+  font-family: 'Playwrite Argentina Guides', cursive !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -75,8 +107,9 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
+  --font-sans: 'Playwrite Argentina Guides', 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-serif: 'Playwrite Argentina Guides', cursive;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -118,15 +151,19 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: 'Playwrite Argentina Guides', cursive !important;
   }
   html {
     overflow-x: hidden;
+    font-family: 'Playwrite Argentina Guides', cursive !important;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Playwrite Argentina Guides', cursive !important;
     overflow-x: hidden;
   }
   #__next {
     overflow-x: hidden;
+    font-family: 'Playwrite Argentina Guides', cursive !important;
   }
 }
