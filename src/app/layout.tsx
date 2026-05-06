@@ -22,6 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         data-site-shell={recipe.homeLayout}
         data-motion-pack={recipe.motionPack}
         className={`${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}`}
+        style={{ fontFamily: 'Playwrite Argentina Guides, cursive !important' }}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>

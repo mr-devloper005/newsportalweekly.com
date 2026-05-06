@@ -60,8 +60,8 @@ function readingTime(post: SitePost) {
 
 function fileMeta(post: SitePost) {
   const content = (post.content && typeof post.content === 'object' ? post.content : {}) as Record<string, unknown>
-  const pages = typeof content.pages === 'number' ? `${content.pages} PAGES` : '24 PAGES'
-  const size = typeof content.size === 'string' ? content.size : '2.4 MB'
+  const pages = typeof content.pages === 'number' ? `${content.pages} PAGES` : null
+  const size = typeof content.size === 'string' ? content.size : null
   return { pages, size }
 }
 
@@ -376,8 +376,8 @@ function PdfView({ posts, activeCategory }: { posts: SitePost[]; activeCategory:
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500">
                 <span className="rounded-full bg-slate-100 px-3 py-1">{getCategory(featured) || 'Briefing'}</span>
-                <span className="rounded-full bg-slate-100 px-3 py-1">{fileMeta(featured).pages}</span>
-                <span className="rounded-full bg-slate-100 px-3 py-1">{fileMeta(featured).size}</span>
+                {fileMeta(featured).pages && <span className="rounded-full bg-slate-100 px-3 py-1">{fileMeta(featured).pages}</span>}
+                {fileMeta(featured).size && <span className="rounded-full bg-slate-100 px-3 py-1">{fileMeta(featured).size}</span>}
                 <span className="rounded-full bg-slate-100 px-3 py-1">
                   <Calendar className="mr-1 inline h-3 w-3" />
                   {formatDate(featured.publishedAt || featured.createdAt)}
@@ -448,8 +448,8 @@ function PdfView({ posts, activeCategory }: { posts: SitePost[]; activeCategory:
                       {post.summary || 'Download the full document — fully sourced and annotated.'}
                     </p>
                     <div className="mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-                      <span className="rounded-full bg-slate-100 px-2.5 py-1">{meta.pages}</span>
-                      <span className="rounded-full bg-slate-100 px-2.5 py-1">{meta.size}</span>
+                      {meta.pages && <span className="rounded-full bg-slate-100 px-2.5 py-1">{meta.pages}</span>}
+                      {meta.size && <span className="rounded-full bg-slate-100 px-2.5 py-1">{meta.size}</span>}
                     </div>
                     <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
                       <Link
