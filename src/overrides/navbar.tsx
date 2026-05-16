@@ -31,15 +31,6 @@ export function NavbarOverride() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="bg-[#d3ee5d] text-[#0c1726]">
-        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] sm:px-6 lg:px-8">
-          <span className="hidden sm:inline">Stay informed</span>
-          <span className="hidden sm:inline">·</span>
-          <span>Fresh weekly reports, articles & downloadable PDFs</span>
-          <ArrowRight className="h-3.5 w-3.5" />
-        </div>
-      </div>
-
       <div className="border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-2.5">

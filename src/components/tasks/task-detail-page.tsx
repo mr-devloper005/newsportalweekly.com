@@ -272,31 +272,14 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               <div className="mx-auto w-full max-w-6xl">
                 {/* Innovative Hero Section */}
                 <div className="relative mb-16 overflow-hidden">
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    {/* Geometric Pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
-                          </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#grid)" />
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* Featured Image with Overlay */}
+                  {/* Featured Image without Overlay */}
                   {images[0] && (
                     <div className="absolute inset-0">
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40"></div>
                       <ContentImage
                         src={images[0]}
                         alt={`${post.title} featured image`}
                         fill
-                        className="object-cover opacity-40"
+                        className="object-cover"
                         intrinsicWidth={1600}
                         intrinsicHeight={900}
                       />
@@ -304,59 +287,59 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                   )}
                   
                   {/* Hero Content */}
-                  <div className="relative px-8 py-20 lg:px-16">
-                    <div className="max-w-4xl">
+                  <div className="relative px-8 py-20 lg:px-16 bg-gradient-to-b from-black/50 via-black/30 to-transparent">
+                    <div className="max-w-5xl">
                       {/* Category Badge */}
                       <div className="inline-flex items-center gap-3">
                         <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-20"></div>
-                        <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30 px-4 py-2 text-xs font-semibold tracking-wider uppercase">
+                        <Badge className="bg-white/30 backdrop-blur-md text-white border-white/40 px-4 py-2 text-xs font-semibold tracking-wider uppercase">
                           {category}
                         </Badge>
                         <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-20"></div>
                       </div>
-                      
+
                       {/* Title with Typography Focus */}
-                      <h1 className="mt-8 text-5xl lg:text-7xl font-serif leading-[0.9] tracking-tight text-white">
+                      <h1 className="mt-8 text-5xl lg:text-8xl font-serif leading-[0.9] tracking-tight text-white drop-shadow-lg">
                         {post.title.split(' ').map((word, i) => (
                           <span key={i} className="block">{word}</span>
                         ))}
                       </h1>
-                      
+
                       {/* Share Button */}
                       <ArticleShareWrapper url={articleUrl} />
-                      
+
                       {/* Author and Date */}
-                      <div className="mt-8 flex flex-wrap items-center gap-6 text-white/90">
+                      <div className="mt-8 flex flex-wrap items-center gap-6 text-white/95">
                         <div className="flex items-center gap-3">
-                          <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                          <div className="h-12 w-12 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
                             <span className="text-white font-bold text-lg">{articleAuthor.charAt(0).toUpperCase()}</span>
                           </div>
                           <div>
-                            <p className="font-semibold text-white">{articleAuthor}</p>
-                            <p className="text-sm text-white/70">Senior Editor</p>
+                            <p className="font-semibold text-white drop-shadow-sm">{articleAuthor}</p>
+                            <p className="text-sm text-white/80">Senior Editor</p>
                           </div>
                         </div>
-                        <div className="h-8 w-px bg-white/30"></div>
+                        <div className="h-8 w-px bg-white/40"></div>
                         <div className="text-sm">
-                          <p className="font-semibold">{articleDate}</p>
-                          <p className="text-white/70">5 min read</p>
+                          <p className="font-semibold drop-shadow-sm">{articleDate}</p>
+                          <p className="text-white/80">5 min read</p>
                         </div>
                       </div>
-                      
+
                       {/* Summary */}
                       {articleSummary && (
-                        <div className="mt-8 max-w-3xl">
-                          <p className="text-lg leading-relaxed text-white/90 font-light">
+                        <div className="mt-8 max-w-4xl">
+                          <p className="text-xl leading-relaxed text-white/95 font-light drop-shadow-md">
                             {articleSummary}
                           </p>
                         </div>
                       )}
-                      
+
                       {/* Tags */}
                       {postTags.length > 0 && (
                         <div className="mt-8 flex flex-wrap gap-2">
                           {postTags.map((tag) => (
-                            <Badge key={tag} variant="outline" className="border-white/40 text-white/80 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+                            <Badge key={tag} variant="outline" className="border-white/50 text-white/90 bg-white/20 backdrop-blur-md hover:bg-white/30 transition-colors">
                               #{tag}
                             </Badge>
                           ))}
@@ -364,13 +347,13 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Bottom Gradient Fade */}
                   <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
                 </div>
 
                 {/* Unique Content Layout */}
-                <div className="mx-auto max-w-4xl">
+                <div className="mx-auto max-w-5xl">
                   {/* Main Content */}
                   <div className="space-y-12">
                     {/* Article Content with Enhanced Typography */}

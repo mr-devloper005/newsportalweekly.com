@@ -18,7 +18,6 @@ const COLUMNS = [
     title: 'Company',
     links: [
       { name: 'About', href: '/about' },
-      { name: 'Team', href: '/team' },
       { name: 'Careers', href: '/careers' },
       { name: 'Contact', href: '/contact' },
     ],
