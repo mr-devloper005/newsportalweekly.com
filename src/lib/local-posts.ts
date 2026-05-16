@@ -4,7 +4,7 @@ import type { SitePost } from "@/lib/site-connector";
 import type { TaskKey } from "@/lib/site-config";
 import { loadFromStorage, saveToStorage, storageKeys } from "@/lib/local-storage";
 
-export type LocalPost = SitePost & {
+export type LocalPost = Omit<SitePost, "task"> & {
   localOnly: true;
   task: TaskKey;
 };

@@ -91,13 +91,7 @@ export default function TermsPage() {
           <p className="mt-2 text-sm leading-7 text-white/75">
             Our legal team will help — no jargon, no runaround.
           </p>
-          <a
-            href="mailto:legal@newsportalweekly.com"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#d3ee5d] px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#0c1726] hover:bg-[#c2dd4d]"
-          >
-            <Mail className="h-4 w-4" />
-            legal@newsportalweekly.com
-          </a>
+          
         </section>
       </main>
       <Footer />

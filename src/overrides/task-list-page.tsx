@@ -19,6 +19,7 @@ import { fetchTaskPosts } from '@/lib/task-data'
 import type { SitePost } from '@/lib/site-connector'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
+import { CategoryDropdownFilter } from '@/overrides/category-dropdown-filter'
 
 export const TASK_LIST_PAGE_OVERRIDE_ENABLED = true
 
@@ -38,6 +39,26 @@ function getCategory(post: SitePost) {
   if (typeof content.category === 'string' && content.category) return content.category
   if (Array.isArray(post.tags) && typeof post.tags[0] === 'string') return post.tags[0]
   return ''
+}
+
+function postMatchesCategory(post: SitePost, category: string) {
+  if (category === 'all') return true
+  const normalizedPostCategory = normalizeCategory(getCategory(post))
+  return normalizedPostCategory === category
+}
+
+function getCategoryLabel(slug: string) {
+  return CATEGORY_OPTIONS.find((item) => item.slug === slug)?.name || slug.replace(/-/g, ' ')
+}
+
+function getAvailableCategories(posts: SitePost[]) {
+  return Array.from(
+    new Set(
+      posts
+        .map((post) => normalizeCategory(getCategory(post)))
+        .filter(Boolean)
+    )
+  ).map((slug) => ({ slug, name: getCategoryLabel(slug) }))
 }
 
 function formatDate(value?: string | null) {
@@ -65,9 +86,9 @@ function fileMeta(post: SitePost) {
   return { pages, size }
 }
 
-function CategoryFilters({ task, active }: { task: TaskKey; active: string }) {
+function CategoryFilters({ task, active, categories }: { task: TaskKey; active: string; categories: Array<{ name: string; slug: string }> }) {
   const route = task === 'pdf' ? '/pdf' : '/articles'
-  const filters = [{ name: 'All', slug: 'all' }, ...CATEGORY_OPTIONS.slice(0, 9)]
+  const filters = [{ name: 'All', slug: 'all' }, ...categories]
   return (
     <div className="flex flex-wrap items-center gap-2">
       {filters.map((cat) => {
@@ -91,10 +112,10 @@ function CategoryFilters({ task, active }: { task: TaskKey; active: string }) {
   )
 }
 
-function ArticlesView({ posts, activeCategory }: { posts: SitePost[]; activeCategory: string }) {
+function ArticlesView({ posts, activeCategory, categories }: { posts: SitePost[]; activeCategory: string; categories: Array<{ name: string; slug: string }> }) {
   const featured = posts[0]
   const secondary = posts.slice(1, 3)
-  const list = posts.slice(3)
+  const list = posts
 
   return (
     <>
@@ -197,7 +218,7 @@ function ArticlesView({ posts, activeCategory }: { posts: SitePost[]; activeCate
       ) : null}
 
       <section className="mt-12 flex flex-wrap items-center justify-between gap-4 border-y border-slate-200 py-4">
-        <CategoryFilters task="article" active={activeCategory} />
+        <CategoryDropdownFilter task="article" active={activeCategory} categories={categories} />
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
           <Filter className="h-3.5 w-3.5" />
           {posts.length} stories
@@ -267,33 +288,14 @@ function ArticlesView({ posts, activeCategory }: { posts: SitePost[]; activeCate
             </ol>
           </div>
 
-          <div className="rounded-3xl bg-[#d3ee5d] p-6">
-            <h3 className="text-xl font-bold uppercase tracking-tight text-[#0c1726]">Stay updated</h3>
-            <p className="mt-2 text-sm leading-6 text-[#0c1726]/80">
-              The week's reporting, summarized. Every Sunday.
-            </p>
-            <form className="mt-4 space-y-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="h-11 w-full rounded-full border border-[#0c1726]/20 bg-white px-4 text-sm outline-none placeholder:text-slate-400 focus:border-[#0c1726]"
-              />
-              <button
-                type="submit"
-                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#0c1726] text-xs font-bold uppercase tracking-[0.22em] text-white hover:bg-[#1a2538]"
-              >
-                Subscribe
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
+          
         </aside>
       </section>
     </>
   )
 }
 
-function PdfView({ posts, activeCategory }: { posts: SitePost[]; activeCategory: string }) {
+function PdfView({ posts, activeCategory, categories }: { posts: SitePost[]; activeCategory: string; categories: Array<{ name: string; slug: string }> }) {
   const featured = posts[0]
   const list = posts.slice(1)
 
@@ -405,7 +407,7 @@ function PdfView({ posts, activeCategory }: { posts: SitePost[]; activeCategory:
       ) : null}
 
       <section className="mt-12 flex flex-wrap items-center justify-between gap-4 border-y border-slate-200 py-4">
-        <CategoryFilters task="pdf" active={activeCategory} />
+        <CategoryFilters task="pdf" active={activeCategory} categories={categories} />
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
           <Filter className="h-3.5 w-3.5" />
           {posts.length} documents
@@ -484,8 +486,10 @@ export async function TaskListPageOverride({ task, category }: { task: TaskKey; 
   }
 
   const limit = task === 'pdf' ? 24 : 30
-  const posts = await fetchTaskPosts(task, limit, { allowMockFallback: true, fresh: true })
+  const posts = await fetchTaskPosts(task, limit, { allowMockFallback: false, fresh: true })
   const activeCategory = category ? normalizeCategory(category) : 'all'
+  const availableCategories = task === 'article' ? CATEGORY_OPTIONS : getAvailableCategories(posts)
+  const filteredPosts = posts.filter((post) => postMatchesCategory(post, activeCategory))
 
   const breadcrumb = task === 'pdf' ? 'PDF Library' : 'Articles'
 
@@ -500,9 +504,9 @@ export async function TaskListPageOverride({ task, category }: { task: TaskKey; 
         </nav>
 
         {task === 'pdf' ? (
-          <PdfView posts={posts} activeCategory={activeCategory} />
+          <PdfView posts={filteredPosts} activeCategory={activeCategory} categories={availableCategories} />
         ) : (
-          <ArticlesView posts={posts} activeCategory={activeCategory} />
+          <ArticlesView posts={filteredPosts} activeCategory={activeCategory} categories={availableCategories} />
         )}
       </main>
       <Footer />
