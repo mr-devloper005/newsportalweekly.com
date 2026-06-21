@@ -117,10 +117,7 @@ export default function AboutPage() {
               think a calmer, more deliberate publication can do more for readers than ten newsletters fighting
               for the same minute of attention.
             </p>
-            <Link href="/team" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#d3ee5d] px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#0c1726] hover:bg-[#c2dd4d]">
-              <Users className="h-4 w-4" />
-              Meet the team
-            </Link>
+            
           </div>
 
           <div>

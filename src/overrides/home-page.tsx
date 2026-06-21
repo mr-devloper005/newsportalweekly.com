@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Calendar, Clock, Download, FileText, Search, Sparkles } from 'lucide-react'
+import { ArrowRight, Clock, Download, FileText, Search, Sparkles } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -43,19 +43,10 @@ function readingTime(post: SitePost) {
   return `${Math.max(3, Math.round(words / 200))} MIN READ`
 }
 
-const CATEGORY_TABS = [
-  { key: 'all', label: 'All News' },
-  { key: 'reports', label: 'Weekly Reports' },
-  { key: 'analysis', label: 'Analysis' },
-  { key: 'features', label: 'Features' },
-  { key: 'press', label: 'Press' },
-  { key: 'pdf', label: 'PDF Library' },
-]
-
 export async function HomePageOverride() {
   const [articles, pdfs] = await Promise.all([
-    fetchTaskPosts('article', 9, { allowMockFallback: true, fresh: true }),
-    fetchTaskPosts('pdf', 6, { allowMockFallback: true, fresh: true }),
+    fetchTaskPosts('article', 9, { allowMockFallback: false, fresh: true }),
+    fetchTaskPosts('pdf', 6, { allowMockFallback: false, fresh: true }),
   ])
 
   const featured = articles[0]
@@ -66,12 +57,6 @@ export async function HomePageOverride() {
       <NavbarShell />
 
       <main className="mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
-        <nav className="mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-          <Link href="/" className="hover:text-[#0c1726]">Homepage</Link>
-          <span>/</span>
-          <span className="text-[#0c1726]">News &amp; Media</span>
-        </nav>
-
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div>
             <h1 className="text-5xl font-bold tracking-[-0.04em] text-[#0c1726] sm:text-6xl">NEWS &amp; MEDIA</h1>
@@ -123,37 +108,6 @@ export async function HomePageOverride() {
             </Link>
           </section>
         ) : null}
-
-        <section className="mt-10 flex flex-wrap items-center justify-between gap-4 border-y border-slate-200 py-4">
-          <div className="flex flex-wrap items-center gap-2">
-            {CATEGORY_TABS.map((tab, idx) => (
-              <button
-                key={tab.key}
-                type="button"
-                className={
-                  idx === 0
-                    ? 'rounded-full bg-[#d3ee5d] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0c1726]'
-                    : 'rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-slate-600 hover:bg-slate-100'
-                }
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <select className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
-              <option>All Categories</option>
-              <option>Reports</option>
-              <option>Analysis</option>
-              <option>Features</option>
-            </select>
-            <select className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
-              <option>All Months</option>
-              <option>This Week</option>
-              <option>This Month</option>
-            </select>
-          </div>
-        </section>
 
         <section className="mt-10 grid gap-10 lg:grid-cols-[1.6fr_1fr]">
           <div className="space-y-8">
@@ -207,36 +161,6 @@ export async function HomePageOverride() {
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-32 lg:self-start">
-            <div className="rounded-3xl bg-[#d3ee5d] p-6">
-              <div className="flex h-32 items-center justify-center rounded-2xl bg-[#d3ee5d]">
-                <svg viewBox="0 0 120 80" className="h-24 w-24 text-[#0c1726]" fill="none" stroke="currentColor" strokeWidth="3">
-                  <rect x="20" y="20" width="60" height="42" rx="4" />
-                  <path d="M20 28h60" />
-                  <circle cx="90" cy="50" r="14" />
-                  <path d="M90 50l8 4" />
-                </svg>
-              </div>
-              <h3 className="mt-5 text-xl font-bold uppercase tracking-tight text-[#0c1726]">Stay updated!</h3>
-              <p className="mt-2 text-sm leading-6 text-[#0c1726]/80">
-                Get all of the company news &amp; insights straight into your inbox.
-              </p>
-              <form className="mt-4 space-y-2">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  className="h-11 w-full rounded-full border border-[#0c1726]/20 bg-white px-4 text-sm outline-none placeholder:text-slate-400 focus:border-[#0c1726]"
-                />
-                <button
-                  type="submit"
-                  className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#0c1726] text-xs font-bold uppercase tracking-[0.22em] text-white hover:bg-[#1a2538]"
-                >
-                  Subscribe
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </form>
-            </div>
-
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-[#0c1726]" />
@@ -259,10 +183,6 @@ export async function HomePageOverride() {
                         <div>
                           <p className="text-sm font-semibold leading-snug text-[#0c1726] group-hover:text-[#1a2538]">
                             {post.title}
-                          </p>
-                          <p className="mt-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                            <Calendar className="h-3 w-3" />
-                            {formatDate(post.publishedAt || post.createdAt)}
                           </p>
                         </div>
                       </Link>
