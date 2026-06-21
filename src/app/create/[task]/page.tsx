@@ -411,10 +411,8 @@ export default function CreateTaskPage() {
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
                 {taskConfig.label}
               </p>
-              <span className="text-slate-300">·</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-700">
-                Local only
-              </span>
+              <span className="text-slate-300"></span>
+              
             </div>
 
             <div className="mt-7 grid gap-6">
@@ -579,7 +577,7 @@ export default function CreateTaskPage() {
                   ) : (
                     <>
                       <Save className="h-4 w-4" />
-                      Publish locally
+                      Publish 
                     </>
                   )}
                 </button>
@@ -624,11 +622,7 @@ export default function CreateTaskPage() {
                   </div>
                 ) : null}
               </div>
-              <p className="mt-4 text-[11px] leading-6 text-slate-500">
-                Posts you create here are saved to your browser only. They'll appear in the local archive at
-                {" "}
-                <code className="rounded bg-slate-100 px-1 py-0.5 text-[10px]">/local/{taskKey}</code>.
-              </p>
+              
             </div>
           </aside>
         </section>

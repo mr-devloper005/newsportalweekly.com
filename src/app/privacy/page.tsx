@@ -86,13 +86,7 @@ export default function PrivacyPage() {
           <p className="mt-2 text-sm leading-7 text-[#0c1726]/80">
             Write to our privacy team and we'll respond within five working days.
           </p>
-          <a
-            href="mailto:privacy@newsportalweekly.com"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#0c1726] px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white hover:bg-[#1a2538]"
-          >
-            <Mail className="h-4 w-4" />
-            privacy@newsportalweekly.com
-          </a>
+         
         </section>
       </main>
       <Footer />
